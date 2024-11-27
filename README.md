@@ -6,11 +6,17 @@ With this approach, testing becomes more structured, maintainable, and organized
 **Main Features.**
 
 • Cucumber: Used to write test cases in an easy-to-understand Gherkin format, describing positive, negative, and boundary scenarios.
+
 • Page Object Model (POM): Each web page is represented as a separate Java class for easy management of elements and methods.
+
 • Selenium Chrome Driver: Used for browser automation during testing.
+
 • BaseTest: The main driver configuration is managed in the base class for browser setup and tear-down after testing.
+
 • Utilities: There is a Webhook class to support additional utilities during testing.
+
 • JSON and HTML reports: Test results are presented in JSON and HTML formats that can be analyzed easily.
+
 • Page-based Testing: Tests are organized according to web pages, and the corresponding methods are called via Step Definitions.
 
 **Project Structure**
