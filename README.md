@@ -16,10 +16,15 @@ Page-based Testing: Tests are organized according to web pages, and the correspo
 **Project Structure**
 
 src/test/java/com/tiks/pages: Folder for Page Object Model implementation. Each web page has its own class for elements and interactions.
+
 src/test/java/com/tiks/stepdef: Folder for CucumberHook files as utilities and for Step Definitions that link Gherkin test cases with POM methods.
+
 src/test/java/com/tiks: Folder for BaseTest class files that set up Selenium WebDriver.
+
 src/test/java/com/tiks: Folder for the CucumberTest file for running Cucumber tests with JUnit.
-src/test/java/resources: Folder for .feature files that describe the test cases in Gherkin format.
+
+src/test/resources: Folder for .feature files that describe the test cases in Gherkin format.
+
 build.gradle: Gradle project configuration with all required dependencies.
 
 **Run the Test.**
