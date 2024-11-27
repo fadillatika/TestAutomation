@@ -47,14 +47,14 @@ Boundary Test: Tests web behavior at boundary values.
 **Example for file .feature:**
 
 Feature: Login 
-  Scenario: Login with username and password
+Scenario: Login with username and password
     Given user is on login page
     When user input username with "standard_user"
     And user input password with "secret_sauce"
     And user clicks login button
     Then user is on homepage  
-
-  Scenario: Login with username and wrong password
+    
+Scenario: Login with username and wrong password
     Given user is on login page
     When user input username with "standard_user"
     And user input password with " "
