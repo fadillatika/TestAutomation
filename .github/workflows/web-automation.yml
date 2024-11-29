@@ -28,4 +28,9 @@ jobs:
 
     - name: Execute Test
       run: ./gradlew cucumber
-      
+
+    - name: Test Result
+      uses: actions/upload-artifact@v3
+      with:
+        name: cucumber-report
+        path: reports/
