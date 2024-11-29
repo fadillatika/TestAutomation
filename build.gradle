@@ -27,6 +27,29 @@ dependencies {
     testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.5.0'
 }
 
-test {
-    useJUnitPlatform()
+//test {
+//    useJUnitPlatform()
+//}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+
+task cucumber(type: JavaExec) {
+    description = "Running Cucumber Test"
+    group = "verification"
+    dependsOn assemble, compileTestJava
+    mainClass.set("io.cucumber.core.cli.Main")
+    classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+    args = [
+            '--plugin', 'html:reports/index.html',
+            '--plugin', 'pretty',
+            '--glue', 'com.tiks.stepdef',
+            '--tags', "${tags}",
+            'src/test/resources'
+    ]
 }
