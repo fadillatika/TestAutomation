@@ -29,11 +29,17 @@ jobs:
     - name: Execute Test
       run: ./gradlew cucumber -PtestType=api
 
+    - name: Upload API Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: api-report
+        path: reports/cucumber-api-report.html
+
     - name: Execute Test
       run: ./gradlew cucumber -PtestType=ui
 
-    - name: Test Result
+    - name: Upload UI Report
       uses: actions/upload-artifact@v3
       with:
-        name: cucumber-report
-        path: reports/
+        name: ui-report
+        path: reports/cucumber-ui-report.html
