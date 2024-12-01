@@ -27,7 +27,10 @@ jobs:
       run: chmod +x gradlew
 
     - name: Execute Test
-      run: ./gradlew cucumber
+      run: ./gradlew cucumber -PtestType=api
+
+    - name: Execute Test
+      run: ./gradlew cucumber -PtestType=ui
 
     - name: Test Result
       uses: actions/upload-artifact@v3
