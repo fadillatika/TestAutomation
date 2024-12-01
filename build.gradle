@@ -25,6 +25,8 @@ dependencies {
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.0'
     testImplementation group: 'org.json', name: 'json', version: '20240303'
     testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '5.5.0'
+
+    testImplementation group: 'org.assertj', name: 'assertj-core', version:'3.24.0'
 }
 
 //test {
@@ -37,7 +39,7 @@ configurations {
     }
 }
 
-def tags = (findProperty('tags') == null) ? 'not @exclude' : findProperty('tags') + ' and not @exclude'
+def uiTags = (findProperty('uiTags') == null || findProperty('uiTags').isEmpty()) ? null : findProperty('uiTags')
 
 task cucumber(type: JavaExec) {
     description = "Running Cucumber Test"
@@ -45,11 +47,29 @@ task cucumber(type: JavaExec) {
     dependsOn assemble, compileTestJava
     mainClass.set("io.cucumber.core.cli.Main")
     classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-    args = [
-            '--plugin', 'html:reports/index.html',
-            '--plugin', 'pretty',
-            '--glue', 'com.tiks.stepdef',
-            '--tags', "${tags}",
-            'src/test/resources'
-    ]
+
+    doFirst {
+        if (findProperty('testType') == 'api') {
+            args = [
+                    '--plugin', 'html:reports/cucumber-api-report.html',
+                    '--plugin', 'pretty',
+                    '--glue', 'apitest.stepDef',
+                    '--tags', "@ApiTest",
+                    'src/test/resources/features/'
+            ]
+        } else if (findProperty('testType') == 'ui') {
+            args = [
+                    '--plugin', 'html:reports/cucumber-ui-report.html',
+                    '--plugin', 'pretty',
+                    '--glue', 'com.tiks.stepdef',
+                    'src/test/resources/featuresUI/'
+            ]
+            if (uiTags != null) {
+                args.add('--tags')
+                args.add("${uiTags}")
+            }
+        } else {
+            throw new GradleException("Please specify the testType property ('api' or 'ui')")
+        }
+    }
 }
